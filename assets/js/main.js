@@ -23,19 +23,19 @@ window.onload = e => {
 	resizeCanvas01();
 }
 	
-document.addEventListener("touchstart", e => {
+canvas01.addEventListener("touchstart", e => {
 	mapTouchEvents(e,"mousedown");
 },true);
 
-document.addEventListener("touchmove", e => {
+canvas01.addEventListener("touchmove", e => {
 	mapTouchEvents(e,"mousemove");
 },true);
 
-document.addEventListener("touchend", e => {
+canvas01.addEventListener("touchend", e => {
 	mapTouchEvents(e,"mouseup");
 },true);
 
-document.addEventListener("touchcancel", e => {
+canvas01.addEventListener("touchcancel", e => {
 	mapTouchEvents(e,"mouseup");
 },true);
 
