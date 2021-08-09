@@ -33,18 +33,20 @@ function clearCanvas() {
 
 // Start Drawing
 function startDrawing(e) {
-    e.preventDefault();
-    console.log(e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop);
+    
+    console.log(e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop); // How to fix this for touch?
     isDrawing = true;
     canvas01_ctx.beginPath();
     canvas01_ctx.moveTo(e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop);
+    e.preventDefault();
 }
 
 // Drawing
 function drawing(e) {
     
     if (isDrawing === true) {
-        canvas01_ctx.lineTo( e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop );
+        // It seems like the problem starts here for touch screens.
+        canvas01_ctx.lineTo( e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop ); 
         canvas01_ctx.strokeStyle = drawColor;
         canvas01_ctx.lineWidth = drawWidth;
         canvas01_ctx.lineCap = "round";
@@ -56,10 +58,10 @@ function drawing(e) {
 // Stop Drawing
 function stopDrawing(e) {
     
-    e.preventDefault();
     if (isDrawing) {
         canvas01_ctx.stroke();
         canvas01_ctx.closePath();
         isDrawing = false;
     }
+    e.preventDefault();
 }
