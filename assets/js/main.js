@@ -4,18 +4,20 @@
 const toolsBtns = document.querySelectorAll(".tools__btn"); // Tools Buttons
 const toolsColorPicker = document.querySelector(".tools__color-picker"); // Tools Color Picker
 const toolsColorFields = document.querySelectorAll(".tools__color-field"); // Tools Color Fields
+const toolsPenSizer = document.querySelector(".tools__pen-sizer"); // Tools Pen Sizer 
 const canvas01 = document.querySelector(".canvas-01"); // Canvas 01
 const canvas01_ctx = canvas01.getContext("2d"); // Get 2d Context
 
 // Coloring variables
 let drawColor = "black";
-let drawWidth = "2";
+let drawWidth = "1";
 let isDrawing = false;
 
 /** Event Handler */
 
 window.onload = e => {
 	toolsColorPicker.value="#000000";
+	toolsPenSizer.value = 1;
 	resizeCanvas01();
 }
 	
@@ -48,15 +50,18 @@ toolsBtns.forEach(btn => {
 })
 
 // Tools Color Picker
-toolsColorPicker.addEventListener("input", e => changeColor(toolsColorPicker.value));
+toolsColorPicker.addEventListener("input", () => changeColor(toolsColorPicker.value));
 
 // Tools Color Fields
 toolsColorFields.forEach(colorField => {
-	colorField.addEventListener("click", e => {
+	colorField.addEventListener("click", () => {
 		toolsColorPicker.value = colorField.getAttribute("data-color-id");
 		changeColor(toolsColorPicker.value);
 	});
 })
+
+// Tools Pen Sizer
+toolsPenSizer.addEventListener("input", () => changePenSize());
 
 /** Function */
 
@@ -145,4 +150,10 @@ function stopDrawing(e) {
 // Change Color
 function changeColor(color) {
 	drawColor = color;
+}
+
+// Change Pen Size
+function changePenSize() {
+	console.log(toolsPenSizer.value);
+	drawWidth = toolsPenSizer.value;
 }
