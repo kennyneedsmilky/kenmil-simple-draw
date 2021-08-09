@@ -13,10 +13,15 @@ let isDrawing = false;
 /** Event Handler */
 
 // Events for both mouse and touch.
-canvas01.addEventListener("touchstart", startDrawing, false);
+canvas01.addEventListener("touchstart", e => {
+    startDrawing(e);
+}, false);
 canvas01.addEventListener("touchmove", drawing, false);
+canvas01.addEventListener("touchend", stopDrawing, false);
 canvas01.addEventListener("mousedown", startDrawing, false);
 canvas01.addEventListener("mousemove", drawing, false);
+canvas01.addEventListener("mouseup", stopDrawing, false);
+canvas01.addEventListener("mouseout", stopDrawing, false);
 
 /** Function */
 
@@ -26,7 +31,7 @@ function clearCanvas() {
     canvas01_ctx.fillRect(0, 0, canvas01.width, canvas01.height); 
 }
 
-// Start Draw
+// Start Drawing
 function startDrawing(e) {
     e.preventDefault();
     console.log(e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop);
@@ -37,6 +42,7 @@ function startDrawing(e) {
 
 // Drawing
 function drawing(e) {
+    
     if (isDrawing === true) {
         canvas01_ctx.lineTo( e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop );
         canvas01_ctx.strokeStyle = drawColor;
@@ -47,3 +53,13 @@ function drawing(e) {
     }
 }
 
+// Stop Drawing
+function stopDrawing(e) {
+    
+    e.preventDefault();
+    if (isDrawing) {
+        canvas01_ctx.stroke();
+        canvas01_ctx.closePath();
+        isDrawing = false;
+    }
+}
