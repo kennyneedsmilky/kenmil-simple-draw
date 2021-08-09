@@ -13,11 +13,10 @@ let isDrawing = false;
 /** Event Handler */
 
 // Events for both mouse and touch.
-canvas01.addEventListener("touchstart", e => {
-    startDrawing(e);
-}, false);
+canvas01.addEventListener("touchstart", startDrawing, false);
 canvas01.addEventListener("touchmove", drawing, false);
 canvas01.addEventListener("touchend", stopDrawing, false);
+
 canvas01.addEventListener("mousedown", startDrawing, false);
 canvas01.addEventListener("mousemove", drawing, false);
 canvas01.addEventListener("mouseup", stopDrawing, false);
@@ -33,17 +32,16 @@ function clearCanvas() {
 
 // Start Drawing
 function startDrawing(e) {
-    
+    e.preventDefault();
     console.log(e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop); // How to fix this for touch?
     isDrawing = true;
     canvas01_ctx.beginPath();
     canvas01_ctx.moveTo(e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop);
-    e.preventDefault();
 }
 
 // Drawing
 function drawing(e) {
-    
+    e.preventDefault();
     if (isDrawing === true) {
         // It seems like the problem starts here for touch screens.
         canvas01_ctx.lineTo( e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop ); 
@@ -57,11 +55,10 @@ function drawing(e) {
 
 // Stop Drawing
 function stopDrawing(e) {
-    
+    e.preventDefault();
     if (isDrawing) {
         canvas01_ctx.stroke();
         canvas01_ctx.closePath();
         isDrawing = false;
     }
-    e.preventDefault();
 }
