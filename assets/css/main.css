@@ -76,7 +76,7 @@ ul {
 /* ボディー */
 body {
   background-color: var(--color-theme-05);
-  background-image: url("../img/kenmil-simple-draw_002.png");
+  background-image: url("../img/kenmil-simple-draw_001.svg");
   background-position: top;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -161,6 +161,13 @@ body {
   transform: scale(0.9);
 }
 
+.save-btn {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
 .--white {
   background-color: white;
 }
@@ -241,6 +248,7 @@ body {
 @media only screen and (max-width: 700px) {
   /* 下に書いてください ↓ */
   body {
+    background-image: url("../img/kenmil-simple-draw_002.png");
     background-position: bottom;
   }
 

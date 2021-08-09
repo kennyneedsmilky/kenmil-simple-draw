@@ -1,23 +1,25 @@
-/* ケンミル */ /* 神様最高 */ "use strict"; console.log(new Date, Date.now());
+/* ケンミル */ /* 神様最高 */ "use strict";
 
 /** DOM */
 const toolsBtns = document.querySelectorAll(".tools__btn"); // Tools Buttons
 const toolsColorPicker = document.querySelector(".tools__color-picker"); // Tools Color Picker
 const toolsColorFields = document.querySelectorAll(".tools__color-field"); // Tools Color Fields
 const toolsPenSizer = document.querySelector(".tools__pen-sizer"); // Tools Pen Sizer 
+const saveBtn = document.querySelector(".save-btn"); // Save Button
 const canvas01 = document.querySelector(".canvas-01"); // Canvas 01
 const canvas01_ctx = canvas01.getContext("2d"); // Get 2d Context
 
 // Coloring variables
+const drawingSteps = [];
 let drawColor = "black";
-let drawWidth = "1";
+let drawWidth = "5";
 let isDrawing = false;
 
 /** Event Handler */
 
 window.onload = e => {
 	toolsColorPicker.value="#000000";
-	toolsPenSizer.value = 1;
+	toolsPenSizer.value = 5;
 	resizeCanvas01();
 }
 	
@@ -46,6 +48,7 @@ canvas01.addEventListener("mouseout", stopDrawing, false);
 toolsBtns.forEach(btn => {
 	btn.addEventListener("click", e => {
 		if (btn.getAttribute("data-action") === "delete") clearCanvas();
+		if (btn.getAttribute("data-action") === "undo") undo();
 	})
 })
 
@@ -59,6 +62,9 @@ toolsColorFields.forEach(colorField => {
 		changeColor(toolsColorPicker.value);
 	});
 })
+
+// Save Button
+saveBtn.addEventListener("click", () => savePicture());
 
 // Tools Pen Sizer
 toolsPenSizer.addEventListener("input", () => changePenSize());
@@ -74,7 +80,8 @@ function resizeCanvas01() {
 		canvas01.width = 500;
     	canvas01.height = 500;
 	}
-    
+    canvas01_ctx.fillStyle = "#ffffff"; // Canvas 01 Context Fillstyle
+    canvas01_ctx.fillRect(0, 0, canvas01.width, canvas01.height);
 }
 
 // Map Touch Events
@@ -109,10 +116,29 @@ function mapTouchEvents(e, simulatedType) {
 // Check for window resize.
 window.addEventListener("resize", e => resizeCanvas01());
 
+// Undo
+function undo() {
+	if (drawingSteps.length <= 0 ) {
+		// console.log("Can't Undo!");
+	} else {
+		drawingSteps.pop();
+		if (drawingSteps.length > 0) {
+			canvas01_ctx.putImageData((drawingSteps[drawingSteps.length - 1]), 0, 0);
+		} else {
+			clearCanvas();
+		}
+	}
+}
+
 // Clear Canvas
 function clearCanvas() {
-    canvas01_ctx.fillStyle = "white"; // Canvas 01 Context Fillstyle
+    canvas01_ctx.fillStyle = "#ffffff"; // Canvas 01 Context Fillstyle
     canvas01_ctx.fillRect(0, 0, canvas01.width, canvas01.height);
+	if (drawingSteps.length <= 0) {
+		// console.log("There is no data in the drawSteps.");
+	} else {
+		drawingSteps.push(canvas01_ctx.getImageData(0, 0, canvas01.width, canvas01.height));
+	}
 }
 
 // Start Drawing
@@ -145,6 +171,14 @@ function stopDrawing(e) {
         canvas01_ctx.closePath();
         isDrawing = false;
     }
+
+	if (e.type !== "mouseout") {
+		// This will make sure that the drawing steps only saves 10 steps at a time.
+		// This is good for controlling memory.
+		if (drawingSteps.length >= 25) drawingSteps.shift();
+		drawingSteps.push(canvas01_ctx.getImageData(0, 0, canvas01.width, canvas01.height));
+	}
+	
 }
 
 // Change Color
@@ -154,6 +188,13 @@ function changeColor(color) {
 
 // Change Pen Size
 function changePenSize() {
-	console.log(toolsPenSizer.value);
 	drawWidth = toolsPenSizer.value;
+}
+
+// Save Picture
+function savePicture() {
+	const link = document.createElement("a");
+    link.download = `simple-draw_${Date.now()}`;
+    link.href = canvas01.toDataURL("image/png", 1.0);
+    link.click();
 }
