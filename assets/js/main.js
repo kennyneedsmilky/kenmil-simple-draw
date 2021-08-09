@@ -1,7 +1,9 @@
 /* ケンミル */ /* 神様最高 */ "use strict"; console.log(new Date, Date.now());
 
 /** DOM */
-
+const toolsBtns = document.querySelectorAll(".tools__btn"); // Tools Buttons
+const toolsColorPicker = document.querySelector(".tools__color-picker"); // Tools Color Picker
+const toolsColorFields = document.querySelectorAll(".tools__color-field"); // Tools Color Fields
 const canvas01 = document.querySelector(".canvas-01"); // Canvas 01
 const canvas01_ctx = canvas01.getContext("2d"); // Get 2d Context
 
@@ -13,6 +15,7 @@ let isDrawing = false;
 /** Event Handler */
 
 window.onload = e => {
+	toolsColorPicker.value="#000000";
 	resizeCanvas01();
 }
 	
@@ -32,15 +35,28 @@ document.addEventListener("touchcancel", e => {
 	mapTouchEvents(e,"mouseup");
 },true);
 
-// Events for both mouse and touch.
-// canvas01.addEventListener("touchstart", startDrawing, false);
-// canvas01.addEventListener("touchmove", drawing, false);
-// canvas01.addEventListener("touchend", stopDrawing, false);
-
 canvas01.addEventListener("mousedown", startDrawing, false);
 canvas01.addEventListener("mousemove", drawing, false);
 canvas01.addEventListener("mouseup", stopDrawing, false);
 canvas01.addEventListener("mouseout", stopDrawing, false);
+
+// Tools Buttons
+toolsBtns.forEach(btn => {
+	btn.addEventListener("click", e => {
+		if (btn.getAttribute("data-action") === "delete") clearCanvas();
+	})
+})
+
+// Tools Color Picker
+toolsColorPicker.addEventListener("input", e => changeColor(toolsColorPicker.value));
+
+// Tools Color Fields
+toolsColorFields.forEach(colorField => {
+	colorField.addEventListener("click", e => {
+		toolsColorPicker.value = colorField.getAttribute("data-color-id");
+		changeColor(toolsColorPicker.value);
+	});
+})
 
 /** Function */
 
@@ -54,6 +70,35 @@ function resizeCanvas01() {
     	canvas01.height = 500;
 	}
     
+}
+
+// Map Touch Events
+function mapTouchEvents(e, simulatedType) {
+	// This ignores the default scroll behavior.
+	e.preventDefault();
+	// Ignore any mapping if more than 1 fingers touching.
+	let touch = e.changedTouches[0];
+	// https://developer.mozilla.org/en/DOM/document.createEvent
+	let eventToSimulate = document.createEvent("MouseEvent");
+	// https://developer.mozilla.org/en-US/docs/Web/API/event.initMouseEvent
+	eventToSimulate.initMouseEvent(
+		simulatedType,		//type
+		true,				//bubbles
+		true,				//cancelable
+		window,				//view
+		1,					//detail
+		touch.screenX,		//screenX
+		touch.screenY,		//screenY
+		touch.clientX,		//clientX
+		touch.clientY,		//clientY
+		false,				//ctrlKey
+		false,				//altKey
+		false,				//shiftKey
+		false,				//metaKey
+		0,					//button
+		null				//relatedTarget
+	);
+	touch.target.dispatchEvent(eventToSimulate);
 }
 
 // Check for window resize.
@@ -97,31 +142,7 @@ function stopDrawing(e) {
     }
 }
 
-// Map Touch Events
-function mapTouchEvents(e, simulatedType) {
-	// This ignores the default scroll behavior.
-	e.preventDefault();
-	// Ignore any mapping if more than 1 fingers touching.
-	let touch = e.changedTouches[0];
-	// https://developer.mozilla.org/en/DOM/document.createEvent
-	let eventToSimulate = document.createEvent("MouseEvent");
-	// https://developer.mozilla.org/en-US/docs/Web/API/event.initMouseEvent
-	eventToSimulate.initMouseEvent(
-		simulatedType,		//type
-		true,				//bubbles
-		true,				//cancelable
-		window,				//view
-		1,					//detail
-		touch.screenX,		//screenX
-		touch.screenY,		//screenY
-		touch.clientX,		//clientX
-		touch.clientY,		//clientY
-		false,				//ctrlKey
-		false,				//altKey
-		false,				//shiftKey
-		false,				//metaKey
-		0,					//button
-		null				//relatedTarget
-	);
-	touch.target.dispatchEvent(eventToSimulate);
+// Change Color
+function changeColor(color) {
+	drawColor = color;
 }

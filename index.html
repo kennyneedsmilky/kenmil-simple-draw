@@ -27,8 +27,8 @@
             <canvas class="canvas-01"></canvas>
             <div class="tools">
                 <div class="tools__sub-container">
-                    <button class="tools__btn"><i class="fas fa-undo-alt"></i></button>
-                    <button class="tools__btn"><i class="fas fa-trash-alt"></i></button>
+                    <button class="tools__btn" data-action="undo"><i class="fas fa-undo-alt"></i></button>
+                    <button class="tools__btn" data-action="delete"><i class="fas fa-trash-alt"></i></button>
                 </div>
                 <div class="tools__sub-container">
                     <input  class="tools__color-picker" type="color">
@@ -36,16 +36,16 @@
                 <!-- Color Fields -->
                 <div class="tools__sub-container --v">
                     <div class="tools__sub-container">
-                        <div class="tools__color-field --white"></div>
-                        <div class="tools__color-field --red"></div>
-                        <div class="tools__color-field --orange"></div>
-                        <div class="tools__color-field --yellow"></div>
+                        <div class="tools__color-field --white" data-color-id="#ffffff"></div>
+                        <div class="tools__color-field --red" data-color-id="#ff0000"></div>
+                        <div class="tools__color-field --orange" data-color-id="#ffa500"></div>
+                        <div class="tools__color-field --yellow" data-color-id="#ffff00"></div>
                     </div>
                     <div class="tools__sub-container">
-                        <div class="tools__color-field --green"></div>
-                        <div class="tools__color-field --blue"></div>
-                        <div class="tools__color-field --purple"></div>
-                        <div class="tools__color-field --black"></div>
+                        <div class="tools__color-field --green" data-color-id="#008000"></div>
+                        <div class="tools__color-field --blue" data-color-id="#0000ff"></div>
+                        <div class="tools__color-field --purple" data-color-id="#800080"></div>
+                        <div class="tools__color-field --black" data-color-id="#000000"></div>
                     </div>
                 </div>
             </div>
