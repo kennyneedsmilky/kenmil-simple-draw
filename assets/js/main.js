@@ -83,8 +83,8 @@ function resizeCanvas01() {
 		canvas01.width = 500;
     	canvas01.height = 500;
 	}
-    // canvas01_ctx.fillStyle = "#ffffff"; // Canvas 01 Context Fillstyle
-    // canvas01_ctx.fillRect(0, 0, canvas01.width, canvas01.height);
+	canvas01_ctx.fillStyle = "#ffffff"; // Canvas 01 Context Fillstyle
+	canvas01_ctx.fillRect(0, 0, canvas01.width, canvas01.height);
 	if (drawingSteps.length <= 0 ) {
 		// console.log("Can't Undo!");
 	} else {
