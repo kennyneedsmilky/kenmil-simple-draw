@@ -1,0 +1,276 @@
+/* ケンミル */ /* 神様最高 */
+
+:root {
+  /* Colors */
+  --color-default-01: #ffffff; /* White */
+  --color-default-02: #808080; /* Gray */
+  --color-default-03: #000000; /* Black */
+  --color-theme-01: #eb5e55; /* Fire Opal */
+  --color-theme-02: #5e5453; /* Black Coffee */
+  --color-theme-03: #d81e5b; /* Ruby */
+  --color-theme-04: #fdf0d5; /* Papaya Whip */
+  --color-theme-05: #c6d8d3; /* Opal */
+  /* Padding */
+  --padding-default: 0.25rem;
+  /* Border */
+  --border-default: 1px solid #000000;
+  --border-radius-default: 15px;
+  /* Shadows */
+  --shadow-default: 3px 3px 3px #00000080;
+  /* Margin */
+  --margin-default: 0.25rem;
+  /* Font */
+  --font-family-default: Arial, Helvetica, sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+  transition: 0.25s;
+}
+
+i {
+  pointer-events: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: var(--padding-default);
+  border: var(--border-default);
+  background-color: var(--color-theme-04);
+  box-shadow: var(--shadow-default);
+  margin: var(--margin-default);
+  width: 64px;
+  height: 64px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: var(--color-theme-02);
+  box-shadow: none;
+  transform: scale(0.9);
+  color: var(--color-theme-04);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  padding: var(--padding-default);
+  margin: var(--margin-default);
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+/* ボディー */
+body {
+  background-color: var(--color-theme-05);
+  background-image: url("../img/kenmil-simple-draw_001.svg");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: var(--color-default-03);
+  font-family: var(--font-family-default);
+  height: calc(100vh - 0.5rem);
+}
+
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: var(--padding-default);
+  margin: var(--margin-default);
+  height: 4rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-default);
+  margin: var(--margin-default);
+  height: calc(100% - 4.5rem);
+}
+
+.canvas-01 {
+  padding: var(--padding-default);
+  margin: var(--margin-default);
+  background-color: var(--color-default-01);
+  box-shadow: var(--shadow-default);
+  width: 500px;
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--padding-default);
+  margin: var(--margin-default);
+  width: 500px;
+}
+
+.tools__sub-container {
+  display: flex;
+  align-items: center;
+}
+
+.--v {
+  flex-direction: column;
+}
+
+.tools__color-picker {
+  padding: var(--padding-default);
+  border: var(--border-default);
+  box-shadow: var(--shadow-default);
+  margin: var(--margin-default);
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+}
+
+.tools__color-picker:active {
+  box-shadow: none;
+  transform: scale(0.9);
+}
+
+.tools__color-field {
+  padding: var(--padding-default);
+  background-color: var(--color-default-02);
+  box-shadow: var(--shadow-default);
+  margin: var(--margin-default);
+  width: calc(32px - 0.5rem);
+  height: calc(32px - 0.5rem);
+  cursor: pointer;
+}
+
+.tools__color-field:active {
+  box-shadow: none;
+  transform: scale(0.9);
+}
+
+.--white {
+  background-color: white;
+}
+
+.--red {
+  background-color: red;
+}
+
+.--orange {
+  background-color: orange;
+}
+
+.--yellow {
+  background-color: yellow;
+}
+
+.--green {
+  background-color: green;
+}
+
+.--blue {
+  background-color: blue;
+}
+
+.--purple {
+  background-color: purple;
+}
+
+.--black {
+  background-color: black;
+}
+
+.tools__pen-sizer {
+  width: 500px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 500;
+  padding: var(--padding-default);
+  margin: var(--margin-default);
+  width: calc(100% - 0.5rem);
+  height: 4rem;
+}
+
+.footer__logo {
+  height: 48px;
+}
+
+/* このクラスを使用すれば、物事を非表示にします。 */
+.hidden {
+  display: none;
+}
+
+/* ホバー */
+@media (hover: hover) {
+  /* 下に書いてください ↓ */
+  button:hover {
+    background-color: var(--color-theme-02);
+    transform: scale(0.9);
+    color: var(--color-theme-04);
+  }
+
+  .tools__color-picker:hover {
+    transform: scale(0.9);
+  }
+
+  .tools__color-field:hover {
+    transform: scale(0.9);
+  }
+}
+
+/* モバイル */
+@media only screen and (max-width: 700px) {
+  /* 下に書いてください ↓ */
+  body {
+    background-position: bottom;
+  }
+
+  button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .header {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .main {
+    justify-content: flex-start;
+  }
+
+  .canvas-01 {
+    width: 90%;
+  }
+
+  .tools {
+    width: 90%;
+  }
+
+  .tools__color-picker {
+    width: 48px;
+    height: 48px;
+  }
+
+  .tools__pen-sizer {
+    width: calc(50% - 0.5rem);
+  }
+}

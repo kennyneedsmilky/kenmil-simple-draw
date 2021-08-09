@@ -1,0 +1,65 @@
+<!-- ケンミル --> <!-- 神様最高 -->
+<!DOCTYPE html>
+<html lang="en">
+    <!-- メタ情報 -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+        <!-- CSSファイルのリンクです。内部の場合は <style></style> に置き換えます。 -->
+        <link rel="stylesheet" type="text/css" href="assets/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+        <!-- JSファイルのリンク。内部の場合はv<script></script> に置き換えます。 -->
+        <script defer src="assets/js/main.js"></script>
+        <!-- ファビコン -->
+        <link rel="shortcut icon" href="assets/img/KenMil_Logo_32x32.png">
+        <title>KenMil Simple Draw</title>
+    </head>
+    <!-- アプリのマークアップ -->
+    <body>
+        
+        <!-- ヘッダー -->
+        <header class="header">
+            <h1>KenMil Simple Draw</h1>
+        </header>
+        
+        <!-- メイン -->
+        <main class="main">
+            <canvas class="canvas-01" width="500px" height="500px"></canvas>
+            <div class="tools">
+                <div class="tools__sub-container">
+                    <button class="tools__btn"><i class="fas fa-undo-alt"></i></button>
+                    <button class="tools__btn"><i class="fas fa-trash-alt"></i></button>
+                </div>
+                <div class="tools__sub-container">
+                    <input  class="tools__color-picker" type="color">
+                </div>
+                <!-- Color Fields -->
+                <div class="tools__sub-container --v">
+                    <div class="tools__sub-container">
+                        <div class="tools__color-field --white"></div>
+                        <div class="tools__color-field --red"></div>
+                        <div class="tools__color-field --orange"></div>
+                        <div class="tools__color-field --yellow"></div>
+                    </div>
+                    <div class="tools__sub-container">
+                        <div class="tools__color-field --green"></div>
+                        <div class="tools__color-field --blue"></div>
+                        <div class="tools__color-field --purple"></div>
+                        <div class="tools__color-field --black"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tools">
+                <input class="tools__pen-sizer" type="range" min="1" max="100">
+            </div>
+        </main>
+        
+        <!-- フッター -->
+        <footer class="footer">
+            <h2 class="footer__title">&copy; 2021</h2>
+            <img class="footer__logo" src="assets/img/kenmil-logo_256x128.png" alt="KenMil">
+        </footer>
+
+    </body>
+</html>
+<!-- HTMLの終わり。 -->
