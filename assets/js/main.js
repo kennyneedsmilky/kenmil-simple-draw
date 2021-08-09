@@ -22,7 +22,10 @@ window.onload = e => {
 	toolsPenSizer.value = 5;
 	resizeCanvas01();
 }
-	
+
+// Check for window resize.
+window.addEventListener("resize", e => resizeCanvas01());
+
 canvas01.addEventListener("touchstart", e => {
 	mapTouchEvents(e,"mousedown");
 },true);
@@ -71,7 +74,7 @@ toolsPenSizer.addEventListener("input", () => changePenSize());
 
 /** Function */
 
-// Resize canvas
+// Resize Canvas 01
 function resizeCanvas01() {
 	if (screen.width < 700) {
 		canvas01.width = 300;
@@ -80,8 +83,17 @@ function resizeCanvas01() {
 		canvas01.width = 500;
     	canvas01.height = 500;
 	}
-    canvas01_ctx.fillStyle = "#ffffff"; // Canvas 01 Context Fillstyle
-    canvas01_ctx.fillRect(0, 0, canvas01.width, canvas01.height);
+    // canvas01_ctx.fillStyle = "#ffffff"; // Canvas 01 Context Fillstyle
+    // canvas01_ctx.fillRect(0, 0, canvas01.width, canvas01.height);
+	if (drawingSteps.length <= 0 ) {
+		// console.log("Can't Undo!");
+	} else {
+		if (drawingSteps.length > 0) {
+			canvas01_ctx.putImageData((drawingSteps[drawingSteps.length - 1]), 0, 0);
+		} else {
+			clearCanvas();
+		}
+	}
 }
 
 // Map Touch Events
@@ -112,9 +124,6 @@ function mapTouchEvents(e, simulatedType) {
 	);
 	touch.target.dispatchEvent(eventToSimulate);
 }
-
-// Check for window resize.
-window.addEventListener("resize", e => resizeCanvas01());
 
 // Undo
 function undo() {
