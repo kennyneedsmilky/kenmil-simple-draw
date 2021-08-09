@@ -1,4 +1,4 @@
-/* ケンミル */ /* 神様最高 */ "use strict"; console.log(new Date);
+/* ケンミル */ /* 神様最高 */ "use strict"; console.log(new Date, Date.now());
 
 /** DOM */
 
@@ -11,10 +11,26 @@ let drawWidth = "2";
 let isDrawing = false;
 
 /** Event Handler */
-document.addEventListener('touchstart',function(e){ mapTouchEvents(e,'mousedown'); },true);
-document.addEventListener('touchmove',function(e){ mapTouchEvents(e,'mousemove'); },true);
-document.addEventListener('touchend',function(e){ mapTouchEvents(e,'mouseup'); },true);
-document.addEventListener('touchcancel',function(e){ mapTouchEvents(e,'mouseup'); },true);
+
+window.onload = e => {
+	resizeCanvas01();
+}
+	
+document.addEventListener("touchstart", e => {
+	mapTouchEvents(e,"mousedown");
+},true);
+
+document.addEventListener("touchmove", e => {
+	mapTouchEvents(e,"mousemove");
+},true);
+
+document.addEventListener("touchend", e => {
+	mapTouchEvents(e,"mouseup");
+},true);
+
+document.addEventListener("touchcancel", e => {
+	mapTouchEvents(e,"mouseup");
+},true);
 
 // Events for both mouse and touch.
 // canvas01.addEventListener("touchstart", startDrawing, false);
@@ -28,6 +44,21 @@ canvas01.addEventListener("mouseout", stopDrawing, false);
 
 /** Function */
 
+// Resize canvas
+function resizeCanvas01() {
+	if (screen.width < 700) {
+		canvas01.width = 300;
+    	canvas01.height = 300;
+	} else {
+		canvas01.width = 500;
+    	canvas01.height = 500;
+	}
+    
+}
+
+// Check for window resize.
+window.addEventListener("resize", e => resizeCanvas01());
+
 // Clear Canvas
 function clearCanvas() {
     canvas01_ctx.fillStyle = "white"; // Canvas 01 Context Fillstyle
@@ -37,7 +68,6 @@ function clearCanvas() {
 // Start Drawing
 function startDrawing(e) {
     e.preventDefault();
-    console.log(e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop); // How to fix this for touch?
     isDrawing = true;
     canvas01_ctx.beginPath();
     canvas01_ctx.moveTo(e.clientX - canvas01.offsetLeft, e.clientY - canvas01.offsetTop);
@@ -68,17 +98,14 @@ function stopDrawing(e) {
 }
 
 // Map Touch Events
-function mapTouchEvents(event,simulatedType) {
-	
-	//Ignore any mapping if more than 1 fingers touching 
-	if(event.changedTouches.length>1){return;}
-	
-	var touch = event.changedTouches[0];
-	
-	//--https://developer.mozilla.org/en/DOM/document.createEvent--
-	let eventToSimulate = document.createEvent('MouseEvent');
-	
-	//--https://developer.mozilla.org/en-US/docs/Web/API/event.initMouseEvent--
+function mapTouchEvents(e, simulatedType) {
+	// This ignores the default scroll behavior.
+	e.preventDefault();
+	// Ignore any mapping if more than 1 fingers touching.
+	let touch = e.changedTouches[0];
+	// https://developer.mozilla.org/en/DOM/document.createEvent
+	let eventToSimulate = document.createEvent("MouseEvent");
+	// https://developer.mozilla.org/en-US/docs/Web/API/event.initMouseEvent
 	eventToSimulate.initMouseEvent(
 		simulatedType,		//type
 		true,				//bubbles
@@ -96,9 +123,5 @@ function mapTouchEvents(event,simulatedType) {
 		0,					//button
 		null				//relatedTarget
 	);
-
 	touch.target.dispatchEvent(eventToSimulate);
-	//This ignores the default scroll behavior
-	event.preventDefault();				
-	
 }

@@ -83,6 +83,7 @@ body {
   color: var(--color-default-03);
   font-family: var(--font-family-default);
   height: calc(100vh - 0.5rem);
+  overflow-y: hidden;
 }
 
 .header {
@@ -258,7 +259,7 @@ body {
   }
 
   .canvas-01 {
-    width: 90%;
+    width: 300px;
   }
 
   .tools {
